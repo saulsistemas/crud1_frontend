@@ -10,14 +10,20 @@
                         <div class="mb-3">
                             <input type="text" formControlName="name"
                             class="form-control form-control-lg" placeholder="Nombre">
+                            <div class="text-danger" *ngIf="productoForm.get('name')?.hasError('required') && productoForm.get('name')?.touched">
+                                <span >El nombre del producto es obligario</span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <input type="number" formControlName="age"
                             class="form-control form-control-lg" placeholder="Fecha">
+                            <div class="text-danger" *ngIf="productoForm.get('age')?.hasError('required') && productoForm.get('age')?.touched">
+                                <span >la fecha es obligaria</span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-secondary btn-lg float-start" routerLink="/listar">volver</button>
-                            <button type="submit" class="btn btn-success btn-lg float-end">Guardar</button>
+                            <button type="submit" class="btn btn-success btn-lg float-end" [disabled]="productoForm.invalid" >Guardar</button>
                         </div>
                     </form>
                 </div>
