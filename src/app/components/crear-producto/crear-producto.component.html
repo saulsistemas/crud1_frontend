@@ -4,12 +4,16 @@
             <div class="card">
                 <div class="card-body text-center">
                     <span>{{title}}</span>
-                    <form>
+                    <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()"> <!-- ENLAZANDO MI FORMULARIO CON LA PROPIEDAD productoForm-->
+                        <!-- luego configurar formControlName="name" para enlazar -->
+                        <!-- luego crear evente ngSubmit -->
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Nombre">
+                            <input type="text" formControlName="name"
+                            class="form-control form-control-lg" placeholder="Nombre">
                         </div>
                         <div class="mb-3">
-                            <input type="number" class="form-control form-control-lg" placeholder="Fecha">
+                            <input type="number" formControlName="age"
+                            class="form-control form-control-lg" placeholder="Fecha">
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-secondary btn-lg float-start" routerLink="/listar">volver</button>
