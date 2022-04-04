@@ -12,6 +12,10 @@ export class ProductoService {
   getProductos():Observable<any>{
     return this.http.get(this.url+'listar');
   }
+
+  deleteProducto(id:any):Observable<any>{
+    return this.http.delete(this.url+'eliminar/'+id)
+  }
 }
 
 
