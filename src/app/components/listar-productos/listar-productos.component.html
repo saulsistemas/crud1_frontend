@@ -6,7 +6,7 @@
                     <span>LISTADO DE PRODUCTOS</span>
                     <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
 
-                    <table class="table mt-3">
+                    <table *ngIf="listarProductos.length >0"  class="table mt-3">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
@@ -17,11 +17,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                          <tr *ngFor="let producto of listarProductos">
+                            <td>{{producto._id}}</td>
+                            <td>{{producto.name}}</td>
+                            <td>{{producto.age}}</td>
+                            <td>{{producto.image}}</td>
+                            
                             <td>
                                 <i class="fa-solid fa-pen-to-square text-warning"></i>
                                 <i class="fa-solid fa-trash-can text-danger"></i> 
@@ -29,6 +30,7 @@
                           </tr>
                         </tbody>
                       </table>
+                      <h5 *ngIf="listarProductos.length ==0">no hay  datos</h5>
                 </div>
             </div>
         </div>
