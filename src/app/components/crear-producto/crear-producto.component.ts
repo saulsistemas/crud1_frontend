@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -13,15 +13,19 @@ import { ProductoService } from 'src/app/services/producto.service';
 export class CrearProductoComponent implements OnInit {
   title:string = "CREAR PRODUCTO";
   productoForm:FormGroup;
+  id:string | null;
   //fb para validar
-  constructor(private fb:FormBuilder, private router:Router,private toastr: ToastrService, private _productoService:ProductoService) {
+  constructor(private fb:FormBuilder, private router:Router,private toastr: ToastrService, private _productoService:ProductoService,
+    private aRouter:ActivatedRoute) {//OBTENER EL ID
     this.productoForm = this.fb.group({
       name: ['',Validators.required],
       age: ['',Validators.required],
     });
+    this.id = this.aRouter.snapshot.paramMap.get('id');
    }
 
   ngOnInit(): void {
+    this.esEditar();
   }
 
   agregarProducto(){
@@ -38,7 +42,17 @@ export class CrearProductoComponent implements OnInit {
     error=>{
       console.log(error);
     });
-    
+  }
+  esEditar() {
+    if (this.id !==null) {
+      this.title = "EDITAR PRODUCTO";
+      this._productoService.obtenerId(this.id).subscribe(response=>{
+        this.productoForm.setValue({
+          name: response.person.name,
+          age: response.person.age,
+        })
+      });
+    }
   }
 
 }
