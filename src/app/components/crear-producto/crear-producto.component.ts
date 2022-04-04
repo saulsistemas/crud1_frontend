@@ -34,14 +34,28 @@ export class CrearProductoComponent implements OnInit {
       age:this.productoForm.value.age,
       image:'',
     }
-    this._productoService.guardarProducto(PRODUCTO).subscribe(response=>{
-      this.toastr.success('Producto registrado','muy bien registrado');
-      this.router.navigate(['/']);
-      console.log(response);
-    },
-    error=>{
-      console.log(error);
-    });
+    if (this.id !==null) {
+      //EDITAMOS
+      this._productoService.editarProducto(this.id,PRODUCTO).subscribe(response=>{
+        this.toastr.info('se actualizo correctamente producto','Producto actualizado !');
+        this.router.navigate(['/']);
+        console.log(response);
+      },
+      error=>{
+        console.log(error);
+      });
+    }else{
+      //AGREGAMOS
+      this._productoService.guardarProducto(PRODUCTO).subscribe(response=>{
+        this.toastr.success('se guardo correctamente producto','Producto Registrado !');
+        this.router.navigate(['/']);
+        console.log(response);
+      },
+      error=>{
+        console.log(error);
+      });
+    }
+    
   }
   esEditar() {
     if (this.id !==null) {

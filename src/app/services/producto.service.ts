@@ -25,6 +25,10 @@ export class ProductoService {
   obtenerId(id:any):Observable<any>{
     return this.http.get(this.url+'buscar/'+id)
   }
+
+  editarProducto(id:any,producto:Producto):Observable<any>{
+    return this.http.put(this.url+'actualizar/'+id,producto);
+  }
 }
 
 
